@@ -1,0 +1,49 @@
+.battleground {
+    border-collapse: collapse;
+}
+
+h1 {
+    font-family: CenturyGothic, "AppleGothic", sans-serif;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    color: #131313;
+    background-color: #4CAF50;
+    letter-spacing: .15em;
+}
+
+h2{
+    font-size: 25px;
+    font-family: CenturyGothic, sans-serif;
+}
+
+#done {
+    margin-bottom: 20px;
+    font-size: 25px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    padding: 10px 30px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+#done:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid black;
+}
+
+td.ship {
+    background-color: darkgray;
+}
+
+td.water {
+    background-color: lightblue;
+}

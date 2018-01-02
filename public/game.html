@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Battleship</title>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="client.js" defer></script>
+    <link rel="stylesheet" href="client.css">
+</head>
+
+<body>
+    <center>
+        <div class="tracking">
+            <h4>Tracking Grid</h4>
+            <table class="battleground" id="tracking"></table>
+        </div>
+        <br>
+        <div class="ships">
+            <br>
+            <table class="battleground" id="carrier"></table>
+            <br>
+            <table class="battleground" id="battleship"></table>
+            <br>
+            <table class="battleground" id="cruiser"></table>
+            <br>
+            <table class="battleground" id="submarine"></table>
+            <br>
+            <table class="battleground" id="destroyer"></table>
+            <br>
+        </div>
+        <button id="done">Done</button>
+        <div class="primary">
+            <h4>Primary Grid</h4>
+            <table class="battleground" id="primary"></table>
+        </div>
+    </center>
+</body>
+
+</html>
