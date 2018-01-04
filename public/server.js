@@ -23,4 +23,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('a user disconnected');
     });
+    socket.on('attack', (row, column) => {
+        socket.broadcast.emit('attack', row, column);
+    });
 });

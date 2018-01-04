@@ -47,3 +47,11 @@ td.ship {
 td.water {
     background-color: lightblue;
 }
+
+td.destroyed {
+    background-color: red;
+}
+
+td.failed {
+    background-color: blue;
+}
