@@ -14,7 +14,6 @@ const battleship = 4;
 const cruiser = 3;
 const submarine = 2;
 const destroyer = 1;
-let stopCoordinate;
 $(() => {
     $('.primary').hide();
     primaryTable = $('#primary');
@@ -32,7 +31,7 @@ $(() => {
     });
     primaryTable.on('click', 'td', function () {
         server.emit('attack', Number(this.getAttribute('data-r')), Number(this.getAttribute('data-c')));
-        setCoordinates(Number(this.getAttribute('data-r')), Number(this.getAttribute('data-c')));
+        //setCoordinates(Number(this.getAttribute('data-r')), Number(this.getAttribute('data-c')));
     });
     $('#done').on('click', function () {
         $('.primary').show();
@@ -42,7 +41,10 @@ $(() => {
 });
 server.on('attack', (row, column) => {
     attackCoordinates(row, column);
-    window.alert('empfangen');
+});
+server.on('attackResult', (result, row, column) => {
+    trackingGrid[row][column] = result;
+    setCoordinates(row, column);
 });
 function createShip(length, grid) {
     const tr = $('<tr>');
@@ -62,10 +64,12 @@ function attackCoordinates(row, column) {
     if (trackingGrid[row][column] == 0) {
         setFailed(trackingGrid, row, column);
         drawGrid(trackingGrid, trackingTable);
+        server.emit('attackResult', 0, row, column);
     }
     if (trackingGrid[row][column] == 1) {
         setDestroyed(trackingGrid, row, column);
         drawGrid(trackingGrid, trackingTable);
+        server.emit('attackResult', 1, row, column);
     }
 }
 function setCoordinates(row, column) {

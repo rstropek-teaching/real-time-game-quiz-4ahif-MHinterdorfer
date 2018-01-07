@@ -26,4 +26,7 @@ io.on('connection', (socket) => {
     socket.on('attack', (row, column) => {
         socket.broadcast.emit('attack', row, column);
     });
+    socket.on('attackResult', (result, row, column) => {
+        socket.broadcast.emit('attackResult', result, row, column);
+    });
 });
