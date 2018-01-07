@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Welcome to Battleship</title>
@@ -7,6 +8,7 @@
     <script src="https://code.jquery.com/jquery.min.js" defer></script>
     <script src="client.js" defer></script>
 </head>
+
 <body>
     <h1>Battleship</h1>
     <form>
@@ -15,5 +17,12 @@
         <input type="text" id="name">
         <input type="button" id="start" value="Start">
     </form>
+    <div class="highscores">
+        <h3>Highscores</h3>
+        <table>
+            <tbody id="highscoreBody"></tbody>
+        </table>
+    </div>
 </body>
+
 </html>

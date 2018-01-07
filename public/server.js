@@ -3,20 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const http = require("http");
 const sio = require("socket.io");
-//Server
+const port = 3000;
 const app = express();
 const server = http.createServer(app);
 const io = sio(server);
-//Game
-let player1;
-let player2;
-let p1Coordinates;
-let p2Coordinates;
-let p1Turns = 0;
-let p2Turns = 0;
 app.use('/', express.static('public'));
-server.listen(3000, () => {
-    console.log('listening on *:3000');
+server.listen(port, () => {
+    console.log('listening on *:' + port);
 });
 io.on('connection', (socket) => {
     console.log('a user connected');
@@ -28,5 +21,9 @@ io.on('connection', (socket) => {
     });
     socket.on('attackResult', (result, row, column) => {
         socket.broadcast.emit('attackResult', result, row, column);
+    });
+    socket.on('won', (winnerName, winnerTurns) => {
+        console.log(winnerName + ' won after ' + winnerTurns + ' turns.');
+        socket.broadcast.emit('won');
     });
 });
