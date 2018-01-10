@@ -19,15 +19,19 @@
   "homepage": "https://github.com/rstropek-teaching/real-time-game-quiz-4ahif-MHinterdorfer#readme",
   "devDependencies": {
     "@types/express": "^4.11.0",
+    "@types/http-status-codes": "^1.2.0",
     "@types/jquery": "^3.2.17",
-    "@types/socket.io": "^1.4.31",
     "@types/jqueryui": "^1.11.1",
+    "@types/restify": "^5.0.7",
+    "@types/restify-errors": "^4.3.2",
+    "@types/socket.io": "^1.4.31",
     "typescript": "^2.6.2"
   },
   "dependencies": {
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "jqueryui": "^1.11.1",
+    "restify": "^6.3.4",
     "socket.io": "^2.0.4"
   }
 }

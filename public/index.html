@@ -4,24 +4,44 @@
 <head>
     <meta charset="utf-8" />
     <title>Welcome to Battleship</title>
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="https://code.jquery.com/jquery.min.js" defer></script>
-    <script src="client.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="client.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
 </head>
 
 <body>
-    <h1>Battleship</h1>
-    <form>
-        Name:
-        <br/>
-        <input type="text" id="name">
-        <input type="button" id="start" value="Start">
-    </form>
-    <div class="highscores">
-        <h3>Highscores</h3>
-        <table>
-            <tbody id="highscoreBody"></tbody>
-        </table>
+    <div class="container" id="title">
+        <div class="page-header text-center">
+            <h1>Battleship</h1>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="jumbotron">
+            <div class="form-group form-group-lg">
+                <p class="text-center">User Name:</p>
+                <input class="form-control text-center" id="userName" placeholder="Enter your user name">
+                <div id="userNameMandatory" class="alert alert-warning text-center">
+                    User name is mandatory
+                </div>
+            </div>
+            <center>
+                <button type="submit" class "btn btn-primary" id="start">Play Game</button>
+            </center>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="highscores">
+            <h3>Highscores</h3>
+            <table>
+                <tbody id="highscoreBody"></tbody>
+            </table>
+        </div>
     </div>
 </body>
 

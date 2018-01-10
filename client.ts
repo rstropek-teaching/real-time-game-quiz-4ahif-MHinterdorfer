@@ -1,57 +1,56 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+declare const io: SocketIOStatic;
 const server = io();
-const row = 10;
-const column = 10;
+
+const row: number = 10;
+const column: number = 10;
+
 //Ships
-const carrier = 5;
-const battleship = 4;
-const cruiser = 3;
-const submarine = 2;
-const destroyer = 1;
-const allShips = (carrier + battleship + cruiser + submarine + destroyer);
+const carrier: number = 5;
+const battleship: number = 4;
+const cruiser: number = 3;
+const submarine: number = 2;
+const destroyer: number = 1;
+const allShips: number = (carrier + battleship + cruiser + submarine + destroyer);
+
 //Game-Grids
-let primaryGrid;
-let trackingGrid;
-let primaryTable;
-let trackingTable;
-let turns = 0;
-let hits = 0;
-let allowed;
-let setShips = true;
+let primaryGrid: number[][];
+let trackingGrid: number[][];
+let primaryTable: JQuery<HTMLElement>;
+let trackingTable: JQuery<HTMLElement>;
+
+let turns: number = 0;
+let hits: number = 0;
+let allowed: boolean;
+let setShips: boolean = true;
+
+
 $('index.html').ready(() => {
     $('#userNameMandatory').hide();
     let valid = false;
     $('#start').prop('disabled', true);
+
     $(document).change(() => {
         let userName = $('#userName').val();
         if (userName === "") {
             $('#userNameMandatory').show();
             valid = false;
-        }
-        else {
+        } else {
             $('#userNameMandatory').hide();
             valid = true;
         }
         if (valid) {
             $('#start').prop('disabled', false);
-        }
-        else {
+        } else {
             $('#start').prop('disabled', true);
         }
     });
+
     $('#start').on('click', () => {
         sessionStorage.setItem('name', String($('#userName').val()));
         window.location.href = 'game.html';
     });
 });
+
 $(() => {
     init();
     $('#instruction').text('Set your Ships!');
@@ -61,6 +60,7 @@ $(() => {
             drawGrid(trackingGrid, trackingTable);
         }
     });
+
     $('#done').on('click', function () {
         allowed = true;
         setShips = false;
@@ -70,25 +70,30 @@ $(() => {
         $(this).hide();
         $('#counter').show();
     });
+
     primaryTable.on('click', 'td', function () {
-        if (allowed)
-            server.emit('attack', Number(this.getAttribute('data-r')), Number(this.getAttribute('data-c')));
+        if (allowed) server.emit('attack', Number(this.getAttribute('data-r')), Number(this.getAttribute('data-c')));
     });
 });
+
 //Server-Events
-server.on('attack', (row, column) => {
+server.on('attack', (row: number, column: number) => {
     attackCoordinates(row, column);
 });
-server.on('attackResult', (result, row, column) => {
+
+server.on('attackResult', (result: number, row: number, column: number) => {
     primaryGrid[row][column] = result;
     setCoordinates(row, column);
     if (hits == allShips) {
         setWinner();
     }
 });
-server.on('won', (winnerName, winnerTurns) => {
+
+server.on('won', (winnerName: string, winnerTurns: number) => {
     window.alert(sessionStorage.getItem('name') + ', you lost after ' + turns + ' turns.');
 });
+
+
 function init() {
     $('.primary').hide();
     $('#counter').hide();
@@ -96,14 +101,16 @@ function init() {
     trackingTable = $('#tracking');
     primaryGrid = createGrid(primaryGrid, primaryTable);
     trackingGrid = createGrid(trackingGrid, trackingTable);
+
     createShip(carrier, $('#carrier'));
     createShip(battleship, $('#battleship'));
     createShip(cruiser, $('#cruiser'));
     createShip(submarine, $('#submarine'));
     createShip(destroyer, $('#destroyer'));
 }
+
 //Init-Functions
-function createGrid(grid, table) {
+function createGrid(grid: number[][], table: JQuery<HTMLElement>) {
     grid = [];
     for (let r = 0; r < row; r++) {
         grid[r] = [];
@@ -116,7 +123,8 @@ function createGrid(grid, table) {
     }
     return grid;
 }
-function createShip(length, grid) {
+
+function createShip(length: number, grid: JQuery<HTMLElement>) {
     const tr = $('<tr>');
     for (let r = 0; r < length; r++) {
         $(`<td id="${grid.attr('id')}">`).addClass('ship').appendTo(tr);
@@ -130,44 +138,48 @@ function createShip(length, grid) {
         revert: true,
     });
 }
-function drawGrid(grid, table) {
+
+function drawGrid(grid: number[][], table: JQuery<HTMLElement>) {
     for (let r = 0; r < row; r++) {
         for (let c = 0; c < column; c++) {
             if (grid[r][c] == 0) {
                 $(`td[data-r=${r}][data-c=${c}][id='${table.attr('id')}']`).removeClass().addClass('water');
-            }
-            else if (grid[r][c] == 1) {
+            } else if (grid[r][c] == 1) {
                 $(`td[data-r=${r}][data-c=${c}][id=${table.attr('id')}]`).removeClass().addClass('ship');
-            }
-            else if (grid[r][c] == 2) {
+            } else if (grid[r][c] == 2) {
                 $(`td[data-r=${r}][data-c=${c}][id=${table.attr('id')}]`).removeClass().addClass('destroyed');
-            }
-            else if (grid[r][c] == 3) {
+            } else if (grid[r][c] == 3) {
                 $(`td[data-r=${r}][data-c=${c}][id=${table.attr('id')}]`).removeClass().addClass('failed');
             }
         }
     }
 }
+
 //Setter
-function setWater(grid, row, column) {
+function setWater(grid: number[][], row: number, column: number) {
     grid[row][column] = 0;
 }
-function setShip(grid, row, column) {
+
+function setShip(grid: number[][], row: number, column: number) {
     grid[row][column] = 1;
 }
-function setDestroyed(grid, row, column) {
+
+function setDestroyed(grid: number[][], row: number, column: number) {
     grid[row][column] = 2;
 }
-function setFailed(grid, row, column) {
+
+function setFailed(grid: number[][], row: number, column: number) {
     grid[row][column] = 3;
 }
+
 function setWinner() {
     window.alert(sessionStorage.getItem('name') + ', you won after ' + turns + ' turns.');
     server.emit('won', sessionStorage.getItem('name'), turns);
     allowed = false;
 }
+
 //Game-Functions
-function attackCoordinates(row, column) {
+function attackCoordinates(row: number, column: number) {
     if (trackingGrid[row][column] == 0) {
         setFailed(trackingGrid, row, column);
         drawGrid(trackingGrid, trackingTable);
@@ -181,7 +193,8 @@ function attackCoordinates(row, column) {
         allowed = false;
     }
 }
-function setCoordinates(row, column) {
+
+function setCoordinates(row: number, column: number) {
     turns++;
     $('#counter').text('Turns: ' + turns);
     if (primaryGrid[row][column] == 0) {
@@ -196,15 +209,15 @@ function setCoordinates(row, column) {
         allowed = true;
     }
 }
+
 function listHighscores() {
-    (function () {
-        return __awaiter(this, void 0, void 0, function* () {
-            const highscores = yield $.get('http://localhost:8080/api/highscores');
-            let html = '<tr><td>fett</td></tr>';
-            for (const highscore of highscores.result) {
-                html += `<tr> <td> ${highscore.name} </td> <td> ${highscore.turns}`;
-            }
-            $('#highscoreBody')[0].innerHTML = html;
-        });
+    (async function () {
+        const highscores = await $.get('http://localhost:8080/api/highscores');
+
+        let html = '<tr><td>fett</td></tr>';
+        for (const highscore of highscores.result) {
+            html += `<tr> <td> ${highscore.name} </td> <td> ${highscore.turns}`;
+        }
+        $('#highscoreBody')[0].innerHTML = html;
     })();
 }

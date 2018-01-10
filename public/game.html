@@ -4,37 +4,58 @@
 <head>
     <meta charset="utf-8" />
     <title>Battleship</title>
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="client.js" defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="client.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
 </head>
 
 <body>
     <center>
-        <div class="tracking">
-            <h4>Tracking Grid</h4>
-            <table class="battleground" id="tracking"></table>
+        <div class="container">
+            <h4 id="instruction"></h4>
+        </div>
+
+        <div class="container">
+            <h5 id="counter">Turns: 0</h5>
+        </div>
+
+        <div class="container">
+            <div class="tracking">
+                <h4 id="trackingText">Tracking Grid</h4>
+                <table class="battleground" id="tracking"></table>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="ships">
+                <br>
+                <table class="battleground" id="carrier"></table>
+                <br>
+                <table class="battleground" id="battleship"></table>
+                <br>
+                <table class="battleground" id="cruiser"></table>
+                <br>
+                <table class="battleground" id="submarine"></table>
+                <br>
+                <table class="battleground" id="destroyer"></table>
+                <br>
+            </div>
+        </div>
+
+        <div class="container">
+            <button type="button" class="btn btn-primary btn-lg" id="done">Done</button>
         </div>
         <br>
-        <div class="ships">
-            <br>
-            <table class="battleground" id="carrier"></table>
-            <br>
-            <table class="battleground" id="battleship"></table>
-            <br>
-            <table class="battleground" id="cruiser"></table>
-            <br>
-            <table class="battleground" id="submarine"></table>
-            <br>
-            <table class="battleground" id="destroyer"></table>
-            <br>
-        </div>
-        <button id="done">Done</button>
-        <div class="primary">
-            <h4>Primary Grid</h4>
-            <table class="battleground" id="primary"></table>
+
+        <div class="container">
+            <div class="primary">
+                <h4>Primary Grid</h4>
+                <table class="battleground" id="primary"></table>
+            </div>
         </div>
     </center>
 </body>
